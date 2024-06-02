@@ -122,13 +122,13 @@ namespace QLHD_QC_VB.Forms
             {
                 a.GetValue(txtmahd.Text); //gọi phương thức GetValue từ frmctvb
                 a.StartPosition = FormStartPosition.CenterScreen; //hiển thị form ở chính giữa màn hình
-                a.Show();//hiển thị form a
+                a.ShowDialog(this);//hiển thị form a
             }
             else
             {
                 b.GetValue(txtmahd.Text); //gọi phương thức GetValue từ frmcthopdong
                 b.StartPosition = FormStartPosition.CenterScreen; //hiển thị form ở chính giữa màn hình
-                b.Show(); //hiển thị form a
+                b.ShowDialog(this); //hiển thị form a
             }
         }
 
