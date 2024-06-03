@@ -28,7 +28,7 @@ namespace QLHD_QC_VB.Forms
             cbomabao.Text = "";
             cbomatheloai.Text = "";
             mskngaydang.Text = "";
-            txtnhuanbut.Text = "";
+            txtnhuanbut.Text = "0";
             txttieude.Text = "";
             txtnoidung.Text = "";
             txttongtien.Text = Convert.ToString(Class.Functions.GetFieldValues("select coalesce(sum(nhuanbut),0) as tongtien " +
@@ -53,6 +53,7 @@ namespace QLHD_QC_VB.Forms
             cbomatheloai.SelectedIndex = -1;
             txttheloai.ReadOnly = true;
             txtnhuanbut.ReadOnly = true;
+            txtnhuanbut.Text = "0";
             load_data();
             btnthem.Enabled = true;
             btncapnhat.Enabled = false;
@@ -101,6 +102,11 @@ namespace QLHD_QC_VB.Forms
             {
                 txttenbao.Text = "";
             }
+            else if (cbomabao.Text != "" && cbomatheloai.Text == "")
+            {
+                txttenbao.Text = Class.Functions.GetFieldValues("select tenbao from bao where mabao ='" + cbomabao.SelectedValue + "'");
+                txtnhuanbut.Text = "0";
+            }
             else
             {
                 txttenbao.Text = Class.Functions.GetFieldValues("select tenbao from bao where mabao ='" + cbomabao.SelectedValue + "'");
@@ -113,6 +119,11 @@ namespace QLHD_QC_VB.Forms
             if (cbomatheloai.Text == "")
             {
                 txttheloai.Text = "";
+            }
+            else if (cbomabao.Text == "" && cbomatheloai.Text != "")
+            {
+                txttheloai.Text = Class.Functions.GetFieldValues("select theloai from theloai where matheloai ='" + cbomatheloai.SelectedValue + "'");
+                txtnhuanbut.Text = "0";
             }
             else
             {

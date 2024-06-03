@@ -224,6 +224,7 @@
             txtthanhtien.Name = "txtthanhtien";
             txtthanhtien.Size = new Size(131, 27);
             txtthanhtien.TabIndex = 55;
+            txtthanhtien.TextChanged += txtthanhtien_TextChanged;
             // 
             // txtdongia
             // 

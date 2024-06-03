@@ -28,7 +28,7 @@ namespace QLHD_QC_VB.Forms
             cbomadv.Text = "";
             mskngaybd.Text = "";
             mskngaykt.Text = "";
-            txtdongia.Text = "";
+            txtdongia.Text = "0";
             txtnoidung.Text = "";
             txtthanhtien.Text = "0";
             txtmaCTQC.Text = "";
@@ -57,6 +57,7 @@ namespace QLHD_QC_VB.Forms
             cbomabao.SelectedIndex = -1;
             Class.Functions.Fillcombo("select madv,dichvu from dichvu", cbomadv, "madv", "madv");
             cbomadv.SelectedIndex = -1;
+            txtdongia.Text = "0";
             txtthanhtien.Text = "0";
             btnthem.Enabled = true;
             btncapnhat.Enabled = false;
@@ -134,6 +135,11 @@ namespace QLHD_QC_VB.Forms
             {
                 txttendv.Text = "";
             }
+            else if (cbomadv.Text !="" && cbomabao.Text == "")
+            {
+                txttendv.Text = Class.Functions.GetFieldValues("select dichvu from dichvu where madv ='" + cbomadv.SelectedValue + "'");
+                txtdongia.Text = "0";
+            }
             else
             {
                 txttendv.Text = Class.Functions.GetFieldValues("select dichvu from dichvu where madv ='" + cbomadv.SelectedValue + "'");
@@ -146,6 +152,11 @@ namespace QLHD_QC_VB.Forms
             if (cbomabao.Text == "")
             {
                 txttenbao.Text = "";
+            }
+            else if (cbomadv.Text == "" && cbomabao.Text != "")
+            {
+                txttenbao.Text = Class.Functions.GetFieldValues("select tenbao from bao where mabao ='" + cbomabao.SelectedValue + "'");
+                txtdongia.Text = "0";
             }
             else
             {
@@ -342,13 +353,24 @@ namespace QLHD_QC_VB.Forms
 
         private void txtdongia_TextChanged(object sender, EventArgs e)
         {
-            if(txtdongia.Text != "" && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1 && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1)
+            if (txtdongia.Text != "" && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1 && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1)
             {
                 txtthanhtien.Text = Convert.ToString(Class.Functions.DateDiff(mskngaybd.Text, mskngaykt.Text) * Convert.ToInt32(txtdongia.Text));
             }
             else
             {
                 txtthanhtien.Text = "0";
+            }
+        }
+
+        private void txtthanhtien_TextChanged(object sender, EventArgs e)
+        {
+            if(Convert.ToInt32(txtthanhtien.Text) < 0)
+            {
+                MessageBox.Show("Hãy nhập ngày kết thúc lớn hơn ngày bắt đầu!","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                mskngaykt.Text = "";
+                mskngaykt.Focus();
+                return;
             }
         }
     }
