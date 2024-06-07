@@ -207,10 +207,11 @@ namespace QLHD_QC_VB.Forms
                 mskngaykt.Text = "";
                 return;
             }
-            if (Class.Functions.DateDiff(mskngaybd.Text, mskngaykt.Text) < 0)
+            if (Convert.ToInt32(txtthanhtien.Text) == 0)
             {
                 MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 mskngaykt.Focus();
+                mskngaykt.Text = "";
                 return;
             }
             if (txtnoidung.Text.Trim().Length == 0)
@@ -269,17 +270,25 @@ namespace QLHD_QC_VB.Forms
                 mskngaybd.Focus();
                 return;
             }
+            if (mskngaykt.Text == "  /  /")
+            {
+                MessageBox.Show("Bạn chưa nhập ngày kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                mskngaykt.Focus();
+                return;
+            }
+            if (!Class.Functions.Isdate(mskngaybd.Text) && !Class.Functions.Isdate(mskngaykt.Text))
+            {
+                MessageBox.Show("Sai định dạng ngày, hãy nhập lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                mskngaybd.Focus();
+                mskngaybd.Text = "";
+                mskngaykt.Text = "";
+                return;
+            }
             if (!Class.Functions.Isdate(mskngaybd.Text))
             {
                 MessageBox.Show("Sai định dạng ngày, hãy nhập lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 mskngaybd.Focus();
                 mskngaybd.Text = "";
-                return;
-            }
-            if (mskngaykt.Text == "  /  /")
-            {
-                MessageBox.Show("Bạn chưa nhập ngày kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                mskngaykt.Focus();
                 return;
             }
             if (!Class.Functions.Isdate(mskngaykt.Text))
@@ -289,10 +298,11 @@ namespace QLHD_QC_VB.Forms
                 mskngaykt.Text = "";
                 return;
             }
-            if (Class.Functions.DateDiff(mskngaybd.Text, mskngaykt.Text) < 0)
+            if (Convert.ToInt32(txtthanhtien.Text) == 0)
             {
                 MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 mskngaykt.Focus();
+                mskngaykt.Text = "";
                 return;
             }
             if (txtnoidung.Text.Trim().Length == 0)
@@ -315,7 +325,8 @@ namespace QLHD_QC_VB.Forms
 
         private void mskngaybd_TextChanged(object sender, EventArgs e)
         {
-            if (mskngaybd.Text.Length == 10 && mskngaybd.Text.IndexOf(' ') == -1 && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1)
+            if (mskngaybd.Text.Length == 10 && mskngaybd.Text.IndexOf(' ') == -1 && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1
+                && Class.Functions.Isdate(mskngaybd.Text) && Class.Functions.Isdate(mskngaykt.Text))
             {
                 txtthanhtien.Text = Convert.ToString(Class.Functions.DateDiff(mskngaybd.Text, mskngaykt.Text) * Convert.ToInt32(txtdongia.Text));
             }
@@ -327,7 +338,8 @@ namespace QLHD_QC_VB.Forms
 
         private void mskngaykt_TextChanged(object sender, EventArgs e)
         {
-            if (mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1 && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1)
+            if (mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1 && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1
+                && Class.Functions.Isdate(mskngaybd.Text) && Class.Functions.Isdate(mskngaykt.Text))
             {
                 txtthanhtien.Text = Convert.ToString(Class.Functions.DateDiff(mskngaybd.Text, mskngaykt.Text) * Convert.ToInt32(txtdongia.Text));
             }
@@ -353,7 +365,8 @@ namespace QLHD_QC_VB.Forms
 
         private void txtdongia_TextChanged(object sender, EventArgs e)
         {
-            if (txtdongia.Text != "" && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1 && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1)
+            if (txtdongia.Text != "" && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1 && mskngaykt.Text.Length == 10 && mskngaykt.Text.IndexOf(' ') == -1
+                && Class.Functions.Isdate(mskngaybd.Text) && Class.Functions.Isdate(mskngaykt.Text))
             {
                 txtthanhtien.Text = Convert.ToString(Class.Functions.DateDiff(mskngaybd.Text, mskngaykt.Text) * Convert.ToInt32(txtdongia.Text));
             }
