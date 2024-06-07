@@ -61,6 +61,20 @@ namespace QLHD_QC_VB.Forms
                 MessageBox.Show("Hãy nhập ít nhất một điều kiện để tìm kiếm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (msktungay.Text != "  /  /" && !Class.Functions.Isdate(msktungay.Text))
+            {
+                MessageBox.Show("Sai định dạng ngày ký, hãy nhập lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                msktungay.Focus();
+                msktungay.Text = "";
+                return;
+            }
+            if (msktoingay.Text != "  /  /" && !Class.Functions.Isdate(msktoingay.Text))
+            {
+                MessageBox.Show("Sai định dạng ngày ký, hãy nhập lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                msktoingay.Focus();
+                msktoingay.Text = "";
+                return;
+            }
             sql = "select * from (" +
                 "select a.mavb as mahd,a.manv,a.makh,ngayky,coalesce(sum(nhuanbut),0) as tongtien " +
                 "from vietbai a full join chitietvietbai b on a.mavb=b.mavb " +
