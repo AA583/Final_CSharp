@@ -98,6 +98,27 @@ namespace QLHD_QC_VB.Forms
                 MessageBox.Show("Hãy nhập ít nhất một điều kiện để hiển thị", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (msktheongay.Text != "  /  /" && !Class.Functions.Isdate(msktheongay.Text))
+            {
+                MessageBox.Show("Sai định dạng ngày ký, hãy nhập lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                msktheongay.Focus();
+                msktheongay.Text = "";
+                return;
+            }
+            if (msktungay.Text != "  /  /" && !Class.Functions.Isdate(msktungay.Text))
+            {
+                MessageBox.Show("Sai định dạng ngày ký, hãy nhập lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                msktungay.Focus();
+                msktungay.Text = "";
+                return;
+            }
+            if (msktoingay.Text != "  /  /" && !Class.Functions.Isdate(msktoingay.Text))
+            {
+                MessageBox.Show("Sai định dạng ngày ký, hãy nhập lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                msktoingay.Focus();
+                msktoingay.Text = "";
+                return;
+            }
             string col, from_dtqc, from_dt, from_dtvb, groupby, where, having;
             where = "";
             groupby = "group by ";
@@ -238,9 +259,9 @@ namespace QLHD_QC_VB.Forms
                 DataGridView.DataSource = tblbaocaodt;
                 load_data();
                 btninbaocao.Enabled = true;
+                txttongtien.Text = Convert.ToString(Class.Functions.GetFieldValues("select coalesce(sum(doanhthu),0) as doanhthu from(" + sql + ") a"));
+                lblbangchu.Text = "Bằng chữ: " + Class.Functions.ConvertNumberToString(txttongtien.Text);
             }
-            txttongtien.Text = Convert.ToString(Class.Functions.GetFieldValues("select coalesce(sum(doanhthu),0) as doanhthu from(" + sql + ") a"));
-            lblbangchu.Text = "Bằng chữ: " + Class.Functions.ConvertNumberToString(txttongtien.Text);
         }
         private void load_data()
         {
