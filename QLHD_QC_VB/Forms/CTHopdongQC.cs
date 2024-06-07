@@ -187,17 +187,25 @@ namespace QLHD_QC_VB.Forms
                 mskngaybd.Focus();
                 return;
             }
+            if (mskngaykt.Text == "  /  /")
+            {
+                MessageBox.Show("Bạn chưa nhập ngày kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                mskngaykt.Focus();
+                return;
+            }
+            if (!Class.Functions.Isdate(mskngaybd.Text) && !Class.Functions.Isdate(mskngaykt.Text))
+            {
+                MessageBox.Show("Sai định dạng ngày, hãy nhập lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                mskngaybd.Focus();
+                mskngaybd.Text = "";
+                mskngaykt.Text = "";
+                return;
+            }
             if (!Class.Functions.Isdate(mskngaybd.Text))
             {
                 MessageBox.Show("Sai định dạng ngày tháng, hãy nhập lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 mskngaybd.Focus();
                 mskngaybd.Text = "";
-                return;
-            }
-            if (mskngaykt.Text == "  /  /")
-            {
-                MessageBox.Show("Bạn chưa nhập ngày kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                mskngaykt.Focus();
                 return;
             }
             if (!Class.Functions.Isdate(mskngaykt.Text))
